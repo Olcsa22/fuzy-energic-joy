@@ -1,0 +1,43 @@
+<div class="sensor-list">
+  <div class="header">
+    <h2>Sensors</h2>
+    <a routerLink="/register" class="btn btn-primary">+ Register Sensor</a>
+  </div>
+
+  @if (loading()) {
+    <p class="loading">Loading sensors...</p>
+  }
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  @if (!loading() && sensors().length === 0) {
+    <p class="empty">No sensors registered yet.</p>
+  }
+
+  @if (!loading() && sensors().length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (sensor of sensors(); track sensor.id) {
+          <tr>
+            <td>{{ sensor.id }}</td>
+            <td>{{ sensor.cityName }}</td>
+            <td>{{ sensor.countryName }}</td>
+            <td>
+              <a [routerLink]="['/sensors', sensor.id]" class="btn btn-sm">View Metrics</a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

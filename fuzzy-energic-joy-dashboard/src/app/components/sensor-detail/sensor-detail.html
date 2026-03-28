@@ -1,0 +1,49 @@
+<div class="sensor-detail">
+  <a routerLink="/sensors" class="back-link">← Back to sensors</a>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  @if (sensor()) {
+    <div class="sensor-info">
+      <h2>Sensor #{{ sensor()!.id }}</h2>
+      <div class="meta">
+        <span><strong>City:</strong> {{ sensor()!.cityName }}</span>
+        <span><strong>Country:</strong> {{ sensor()!.countryName }}</span>
+      </div>
+    </div>
+
+    <h3>Metric History</h3>
+    @if (loading()) {
+      <p class="loading">Loading metrics...</p>
+    }
+
+    @if (!loading() && metrics().length === 0) {
+      <p class="empty">No metrics recorded yet.</p>
+    }
+
+    @if (!loading() && metrics().length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Temperature (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Recorded At</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (m of metrics(); track m.id) {
+            <tr>
+              <td>{{ m.id }}</td>
+              <td>{{ m.temperature !== null ? (m.temperature | number:'1.1-2') : '—' }}</td>
+              <td>{{ m.humidity !== null ? (m.humidity | number:'1.1-2') : '—' }}</td>
+              <td>{{ m.createdOn | date:'medium' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+</div>

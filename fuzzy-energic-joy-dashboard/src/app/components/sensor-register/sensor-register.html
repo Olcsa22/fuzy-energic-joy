@@ -1,0 +1,29 @@
+<div class="register-form">
+  <h2>Register New Sensor</h2>
+  <p class="hint">All fields are required.</p>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <form (ngSubmit)="register()">
+    <label>
+      Sensor ID
+      <input type="number" [(ngModel)]="sensorId" name="sensorId" placeholder="e.g. 1" required>
+    </label>
+
+    <label>
+      City Name
+      <input type="text" [(ngModel)]="cityName" name="cityName" placeholder="e.g. Budapest" required>
+    </label>
+
+    <label>
+      Country Name
+      <input type="text" [(ngModel)]="countryName" name="countryName" placeholder="e.g. Hungary" required>
+    </label>
+
+    <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+      {{ submitting() ? 'Registering...' : 'Register Sensor' }}
+    </button>
+  </form>
+</div>
