@@ -7,7 +7,7 @@ import { Sensor, MetricDetail, MetricsQuery } from '../models/sensor.model';
   providedIn: 'root'
 })
 export class SensorService {
-  private readonly apiUrl = 'http://localhost:8080/sensors';
+  private readonly apiUrl = '/api/sensors';
 
   constructor(private http: HttpClient) {}
 
